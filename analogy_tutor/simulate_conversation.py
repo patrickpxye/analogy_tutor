@@ -3,13 +3,15 @@ import copy
 import warnings
 from tqdm import tqdm
 
-from analogy.modules import LLMAssistant, UserSimulator
-from analogy.utils.template import chat_template
-
+from analogy_tutor.modules import LLMAssistant, UserSimulator
+from analogy_tutor.utils.template import chat_template
 
 def run_one_chat_session(assistant_generation_kwargs={},
                          user_generation_kwargs={},
                          max_new_turns=10,
+                         target_concept= " ",
+                         prompt_method='zero-shot',
+                         user_profile= " ",
                          verbose=True):
     """
     Run a single chat session.
@@ -21,7 +23,9 @@ def run_one_chat_session(assistant_generation_kwargs={},
     
     assistant_model_name = assistant_generation_kwargs['model']
 
-    assistant = LLMAssistant(method=prompt_method, 
+    assistant = LLMAssistant(target_concept=target_concept,
+                            method=prompt_method,
+                            user_profile=user_profile,
                             **assistant_generation_kwargs)
     user = UserSimulator(user_profile=user_profile, 
                          **user_generation_kwargs)

@@ -10,8 +10,14 @@ current_dir = osp.dirname(__file__)
 ###############################################################################
 ##        Load System Prompt & Assistant Prompt (for prompting methods)      ##
 ###############################################################################
-# with open(osp.join(current_dir, 'llm_assistant/general/system_prompt.txt'), 'r') as f:
-#     SYSTEM_PROMPT = f.read()
+with open(osp.join(current_dir, 'llm_assistant/non-analogy.txt'), 'r') as f:
+    LLM_NON_ANALOGY_PROMPT = PromptHandler(f.read(), input_keys=['target_concept','user_profile'], output_format=str)
+
+with open(osp.join(current_dir, 'llm_assistant/zero-shot-analogy.txt'), 'r') as f:
+    LLM_ZERO_SHOT_ANALOGY_PROMPT = PromptHandler(f.read(), input_keys=['target_concept','user_profile'], output_format=str)
+
+with open(osp.join(current_dir, 'llm_assistant/few-shot-analogy.txt'), 'r') as f:
+    LLM_FEW_SHOT_ANALOGY_PROMPT = PromptHandler(f.read(), input_keys=['target_concept','user_profile'], output_format=str)
 
 # with open(osp.join(current_dir, 'funtional/extract_answer.txt'), 'r') as f:
 #     EXTRACT_ANSWER = f.read()

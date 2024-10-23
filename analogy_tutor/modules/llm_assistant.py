@@ -1,23 +1,23 @@
 from typing import List
 from analogy_tutor.utils.llm_lib.get_llm_outputs import get_llm_output
-from analogy_tutor.prompts import *
-
+from analogy_tutor.prompts import LLM_NON_ANALOGY_PROMPT, LLM_ZERO_SHOT_ANALOGY_PROMPT, LLM_FEW_SHOT_ANALOGY_PROMPT
 
 class LLMAssistant(object):
     registered_prompts = {
-        'none': None,
-        # TODO[Patrick]: add different prompts
-        'zero-shot': None,
-        'few-shot': None,
+        'non-analogy': LLM_NON_ANALOGY_PROMPT,
+        'zero-shot-analogy': LLM_ZERO_SHOT_ANALOGY_PROMPT,
+        'few-shot-analogy': LLM_FEW_SHOT_ANALOGY_PROMPT,
         'cot': None
     }
-    def __init__(self, method='zero-shot', **llm_kwargs):
+    def __init__(self, target_concept, user_profile, method='zero-shot', **llm_kwargs):
         """
         Initialize the LLMAssistant model.
         """
         super().__init__()
         self.method = method
         self.prompt_handler = self.registered_prompts[method]
+        self.target_concept = target_concept
+        self.user_profile = user_profile
         self.max_new_tokens = llm_kwargs.get('max_new_tokens', 512)
         self.llm_kwargs = llm_kwargs
 
@@ -33,13 +33,8 @@ class LLMAssistant(object):
         """
         assert messages[-1]['role'] == 'user'
 
-        if self.method in ['zero_shot', 'cot', 'few-shot']:
-            # TODO[Patrick]: get prompts and the kwargs that the prompt template needs
-            prompt = self.prompt_handler(None)
-            # example:
-            # prompt = self.prompt_handler(chat_history=chat_template(messages),
-            #                              max_new_tokens=self.max_new_tokens,
-            #                              **kwargs)
+        if self.method in ['non-analogy', 'zero-shot-analogy', 'few-shot-analogy']:
+            prompt = self.prompt_handler(target_concept=self.target_concept, user_profile=self.user_profile)
         else:
             prompt = messages
             if len(prompt) and prompt[0]['role'] == 'system':
