@@ -1,6 +1,6 @@
 import os
 import os.path as osp
-from proact.prompts.prompt_handler import PromptHandler
+from prompts.prompt_handler import PromptHandler
 from typing import Union
 
 

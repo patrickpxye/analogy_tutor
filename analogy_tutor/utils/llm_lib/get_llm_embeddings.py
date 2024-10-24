@@ -1,7 +1,7 @@
 import torch
 from typing import Any, Union, List, Dict, Optional
-from analogy_tutor.utils.llm_lib.embedding import *
-from analogy_tutor.utils.loose_match import loose_match
+from utils.llm_lib.embedding import *
+# from analogy_tutor.utils.loose_match import loose_match
 
 
 def get_llm_embeddings(text: Union[str, List[str]],
@@ -17,8 +17,8 @@ def get_llm_embeddings(text: Union[str, List[str]],
     Returns:
         torch.Tensor: Embeddings with shape (num_texts, embedding_dim).
     """
-    if loose_match(model, REGISTERED_TEXT_COMPLETION_LLMS) is False:
-        warnings.warn(f"Model {model} is not registered. You may still be able to use it.")
+    # if loose_match(model, REGISTERED_TEXT_COMPLETION_LLMS) is False:
+    #     warnings.warn(f"Model {model} is not registered. You may still be able to use it.")
     
     if isinstance(text, str):
         text = [text]

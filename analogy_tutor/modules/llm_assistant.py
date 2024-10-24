@@ -1,6 +1,6 @@
 from typing import List
-from analogy_tutor.utils.llm_lib.get_llm_outputs import get_llm_output
-from analogy_tutor.prompts import LLM_NON_ANALOGY_PROMPT, LLM_ZERO_SHOT_ANALOGY_PROMPT, LLM_FEW_SHOT_ANALOGY_PROMPT
+from utils.llm_lib.get_llm_outputs import get_llm_output
+from prompts import LLM_NON_ANALOGY_PROMPT, LLM_ZERO_SHOT_ANALOGY_PROMPT, LLM_FEW_SHOT_ANALOGY_PROMPT
 
 class LLMAssistant(object):
     registered_prompts = {
@@ -9,7 +9,7 @@ class LLMAssistant(object):
         'few-shot-analogy': LLM_FEW_SHOT_ANALOGY_PROMPT,
         'cot': None
     }
-    def __init__(self, target_concept, user_profile, method='zero-shot', **llm_kwargs):
+    def __init__(self, target_concept, user_profile, method='zero-shot-analogy', **llm_kwargs):
         """
         Initialize the LLMAssistant model.
         """
@@ -31,7 +31,7 @@ class LLMAssistant(object):
         Returns:
             torch.Tensor: The output tensor.
         """
-        assert messages[-1]['role'] == 'user'
+        if len(messages) != 0: assert messages[-1]['role'] == 'user'
 
         if self.method in ['non-analogy', 'zero-shot-analogy', 'few-shot-analogy']:
             prompt = self.prompt_handler(target_concept=self.target_concept, user_profile=self.user_profile)

@@ -3,14 +3,14 @@ import copy
 import warnings
 from tqdm import tqdm
 
-from analogy_tutor.modules import LLMAssistant, UserSimulator
-from analogy_tutor.utils.template import chat_template
+from modules import LLMAssistant, UserSimulator
+from utils.template import chat_template
 
 def run_one_chat_session(assistant_generation_kwargs={},
                          user_generation_kwargs={},
-                         max_new_turns=10,
+                         max_new_turns=1,
                          target_concept= " ",
-                         prompt_method='zero-shot',
+                         prompt_method='zero-shot-analogy',
                          user_profile= " ",
                          verbose=True):
     """
@@ -21,7 +21,7 @@ def run_one_chat_session(assistant_generation_kwargs={},
 
     """
     
-    assistant_model_name = assistant_generation_kwargs['model']
+    # assistant_model_name = assistant_generation_kwargs['model']
 
     assistant = LLMAssistant(target_concept=target_concept,
                             method=prompt_method,
@@ -37,8 +37,12 @@ def run_one_chat_session(assistant_generation_kwargs={},
     for _ in tqdm(range(2 * (max_new_turns or 1)), desc="Generating chat", disable=not verbose):
         if cur_role == 'assistant':
             response = assistant(chat)
+            print("LLM Assistant: ")
+            print(response)
         elif cur_role == 'user':
             response = user(chat)
+            print("User: ")
+            print(response)
         if os.environ.get('RANK') == '0' and verbose:
             print('*' * 75, f'\n**{cur_role}**: {response}\n', '*' * 75)
         
@@ -61,3 +65,10 @@ def check_for_termination(response):
     except Exception as e:
         warnings.warn(f"Error checking for chat termination: {e}")
         return False
+
+
+run_one_chat_session(max_new_turns=2,
+                         target_concept= "Photosynthesis",
+                         prompt_method='zero-shot-analogy',
+                         user_profile= "The student studies gastronomy and is familiar with cooking techniques.",
+                         verbose=True)

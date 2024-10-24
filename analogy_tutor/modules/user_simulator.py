@@ -1,7 +1,7 @@
 from typing import List
-from analogy_tutor.utils.llm_lib.get_llm_outputs import get_llm_output
-from analogy_tutor.prompts import USER_SIMULATOR_PRONPT
-from analogy_tutor.utils.template import chat_template
+from utils.llm_lib.get_llm_outputs import get_llm_output
+from prompts import USER_SIMULATOR_PRONPT
+from utils.template import chat_template
 
 
 class UserSimulator(object):
@@ -18,6 +18,6 @@ class UserSimulator(object):
         if len(messages) and messages[0]['role'] == 'system':
             messages = messages[1:]
         
-        prompt = self.prompt_handler(user_profile=user_profile, chat_history=chat_template(messages))
+        prompt = self.prompt_handler(user_profile=self.user_profile, chat_history=chat_template(messages))
         response = get_llm_output(prompt, **self.llm_kwargs).strip()
         return response

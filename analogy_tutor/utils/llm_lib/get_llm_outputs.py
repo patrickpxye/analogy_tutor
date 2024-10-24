@@ -2,8 +2,8 @@ import os
 import warnings
 import multiprocessing
 from functools import partial
-from analogy_tutor.utils.llm_lib.completion import *
-from analogy_tutor.utils.loose_match import loose_match
+from utils.llm_lib.completion import *
+# from analogy_tutor.utils.loose_match import loose_match
 
 
 # Default parameters for retrying API calls and the sleep time between retries
@@ -33,8 +33,8 @@ def get_llm_output(message,
     Raises:
         ValueError: If the model is not recognized.
     """
-    if loose_match(model, REGISTERED_TEXT_COMPLETION_LLMS) is False:
-        warnings.warn(f"Model {model} is not registered. You may still be able to use it.")
+    # if loose_match(model, REGISTERED_TEXT_COMPLETION_LLMS) is False:
+    #     warnings.warn(f"Model {model} is not registered. You may still be able to use it.")
     
     kwargs = {
         'message': message, 
