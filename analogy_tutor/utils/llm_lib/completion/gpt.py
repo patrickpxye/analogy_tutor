@@ -4,7 +4,7 @@ from typing import Union, List, Dict
 
 
 def get_gpt_output(message: Union[str, List[Dict[str, str]]], 
-                   model: str = "gpt-4-1106-preview", 
+                   model: str = "gpt-4o", 
                    max_tokens: int = 2048, 
                    temperature: float = 1.0, 
                    max_retry: int = 1,
