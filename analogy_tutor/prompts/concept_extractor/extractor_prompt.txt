@@ -1,0 +1,12 @@
+You are going to be presented with a multiple choice quiz question for middle school students. This will contain the question itself, the multiple choice answers, the correct answer, and the rationale for solving the question.
+
+Here is the quiz question:
+{quiz_question}
+
+Your task is to identify the key concepts that the students need to understand in order to answer the question correctly. You should list concepts present in the question, the answer choices, and the rationale. Return this list as a comma-separated list of strings. You should include no more than 10 concepts.
+
+For example, consider the following quiz question:
+
+'question': 'What is the upper-most atmosphere known as?', 'choices': ['A': 'ionosphere', 'B': 'xerosphere', 'C': 'exosphere', 'D': 'thermosphere'], 'answer': 'D', 'rationale': 'The atmosphere is a big part of the water cycle. What do you think would happen to Earth’s water without it?.'
+
+The list of concepts you return should be: ['atmosphere', 'ionosphere', 'xerosphere', 'exosphere', 'thermosphere', 'water cycle']

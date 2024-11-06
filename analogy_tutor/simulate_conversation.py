@@ -3,13 +3,13 @@ import copy
 import warnings
 from tqdm import tqdm
 
-from modules import LLMAssistant, UserSimulator
+from modules import LLMAssistant, UserSimulator, Extractor
 from utils.template import chat_template
 
 def run_one_chat_session(assistant_generation_kwargs={},
                          user_generation_kwargs={},
                          max_new_turns=1,
-                         target_concept= " ",
+                         target_concepts= " ",
                          prompt_method='zero-shot-analogy',
                          user_profile= " ",
                          verbose=True):
@@ -23,7 +23,9 @@ def run_one_chat_session(assistant_generation_kwargs={},
     
     # assistant_model_name = assistant_generation_kwargs['model']
 
-    assistant = LLMAssistant(target_concept=target_concept,
+    print(user_profile)
+
+    assistant = LLMAssistant(target_concepts=target_concepts,
                             method=prompt_method,
                             user_profile=user_profile,
                             **assistant_generation_kwargs)
@@ -67,8 +69,8 @@ def check_for_termination(response):
         return False
 
 
-run_one_chat_session(max_new_turns=2,
-                         target_concept= "Photosynthesis",
-                         prompt_method='zero-shot-analogy',
-                         user_profile= "The student studies gastronomy and is familiar with cooking techniques.",
+run_one_chat_session(max_new_turns=1,
+                         target_concepts= ["Photosynthesis", "Cellular Respiration", "DNA Replication"],
+                         prompt_method='few-shot-analogy',
+                         user_profile= "History student with no knowledge of biology",
                          verbose=True)

@@ -9,14 +9,14 @@ class LLMAssistant(object):
         'few-shot-analogy': LLM_FEW_SHOT_ANALOGY_PROMPT,
         'cot': None
     }
-    def __init__(self, target_concept, user_profile, method='zero-shot-analogy', **llm_kwargs):
+    def __init__(self, target_concepts, user_profile, method='zero-shot-analogy', **llm_kwargs):
         """
         Initialize the LLMAssistant model.
         """
         super().__init__()
         self.method = method
         self.prompt_handler = self.registered_prompts[method]
-        self.target_concept = target_concept
+        self.target_concepts = target_concepts
         self.user_profile = user_profile
         self.max_new_tokens = llm_kwargs.get('max_new_tokens', 512)
         self.llm_kwargs = llm_kwargs
@@ -34,7 +34,7 @@ class LLMAssistant(object):
         if len(messages) != 0: assert messages[-1]['role'] == 'user'
 
         if self.method in ['non-analogy', 'zero-shot-analogy', 'few-shot-analogy']:
-            prompt = self.prompt_handler(target_concept=self.target_concept, user_profile=self.user_profile)
+            prompt = self.prompt_handler(target_concepts=self.target_concepts, user_profile=self.user_profile)
         else:
             prompt = messages
             if len(prompt) and prompt[0]['role'] == 'system':

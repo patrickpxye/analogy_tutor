@@ -6,18 +6,24 @@ from typing import Union
 
 current_dir = osp.dirname(__file__)
 
-# TODO[Patrick]: load different prompts similar to the commented code below
 ###############################################################################
 ##        Load System Prompt & Assistant Prompt (for prompting methods)      ##
 ###############################################################################
 with open(osp.join(current_dir, 'llm_assistant/non-analogy.txt'), 'r') as f:
-    LLM_NON_ANALOGY_PROMPT = PromptHandler(f.read(), input_keys=['target_concept','user_profile'], output_format=str)
+    LLM_NON_ANALOGY_PROMPT = PromptHandler(f.read(), input_keys=['target_concepts','user_profile'], output_format=str)
 
 with open(osp.join(current_dir, 'llm_assistant/zero-shot-analogy.txt'), 'r') as f:
-    LLM_ZERO_SHOT_ANALOGY_PROMPT = PromptHandler(f.read(), input_keys=['target_concept','user_profile'], output_format=str)
+    LLM_ZERO_SHOT_ANALOGY_PROMPT = PromptHandler(f.read(), input_keys=['target_concepts','user_profile'], output_format=str)
 
 with open(osp.join(current_dir, 'llm_assistant/few-shot-analogy.txt'), 'r') as f:
-    LLM_FEW_SHOT_ANALOGY_PROMPT = PromptHandler(f.read(), input_keys=['target_concept','user_profile'], output_format=str)
+    LLM_FEW_SHOT_ANALOGY_PROMPT = PromptHandler(f.read(), input_keys=['target_concepts','user_profile'], output_format=str)
+
+###############################################################################
+##        Load System Prompt & Assistant Prompt (for prompting methods)      ##
+###############################################################################
+
+with open(osp.join(current_dir, 'concept_extractor/extractor_prompt.txt'), 'r') as f:
+    EXTRACTOR_PROMPT = PromptHandler(f.read(), input_keys=['quiz_question'], output_format=str)
 
 # with open(osp.join(current_dir, 'funtional/extract_answer.txt'), 'r') as f:
 #     EXTRACT_ANSWER = f.read()
