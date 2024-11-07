@@ -69,8 +69,8 @@ def check_for_termination(response):
         return False
 
 
-run_one_chat_session(max_new_turns=1,
-                         target_concepts= ["Photosynthesis", "Cellular Respiration", "DNA Replication"],
-                         prompt_method='few-shot-analogy',
-                         user_profile= "History student with no knowledge of biology",
-                         verbose=True)
+# run_one_chat_session(max_new_turns=1,
+#                          target_concepts= ["Photosynthesis", "Cellular Respiration", "DNA Replication"],
+#                          prompt_method='few-shot-analogy',
+#                          user_profile= "History student with no knowledge of biology",
+#                          verbose=True)

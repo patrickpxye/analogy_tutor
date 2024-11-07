@@ -9,8 +9,7 @@ from ds.sciq import SciQ
 
 # SciQA dataset
 dataset = SciQ()
-print('Question: ', dataset[0]['question'])
-print('Choices: ', dataset[0]['choices'])
-print('Answer: ', dataset[0]['answer'])
-print('Rationale: ', dataset[0]['rationale'])
-print('*********')
+# print('Question: ', dataset[0]['question'])
+# print('Choices: ', dataset[0]['choices'])
+# print('Answer: ', dataset[0]['answer'])
+# print('Rationale: ', dataset[0]['rationale'])

@@ -1,16 +1,24 @@
 from compile_question_concepts import dataset
-# from simulate_conversation import run_one_chat_session
+from simulate_conversation import run_one_chat_session
 from modules import Extractor
+from anonymize_concepts import generate_anonymized_mapping, anonymize_text
 
+# # Quiz Question -> Target Concepts
+# quiz_question = dataset[0]
+# extractor = Extractor()
+# concepts = extractor(quiz_question)
+# print("Quiz Question: ", quiz_question)
+# print("Extracted Concepts: ", concepts)
 
-quiz = dataset[0]
-extractor = Extractor()
-response = extractor(quiz)
-print("Quiz Question: ", quiz)
-print("Extracted Concept: ", response)
+quiz_question = dataset[0]
+concepts = ['mesophilic organisms', 'viruses', 'gymnosperms', 'protozoa', 'temperature', 'food preparation', 'cheese', 'yogurt', 'beer', 'wine']
 
-# run_one_chat_session(max_new_turns=2,
-#                          target_concept= "Photosynthesis",
-#                          prompt_method='zero-shot-analogy',
-#                          user_profile= "The student studies gastronomy and is familiar with cooking techniques.",
-#                          verbose=True)
+# Target Concepts Anonymization
+ano_dict = generate_anonymized_mapping(concepts)
+
+# Quiz Question -> Anonymized Quiz Concepts
+ano_quiz = {}
+for key, value in quiz_question.items():
+    ano_quiz[key] = anonymize_text(str(value), ano_dict)
+
+print("Anonymized Quiz Question: ", ano_quiz)
