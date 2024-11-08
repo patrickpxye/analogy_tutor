@@ -50,10 +50,8 @@ def run_one_chat_session(question,
             response, accuracy = exam(user_profile, question, choices, answer, chat)
         
         elif cur_role == 'assistant':
-            response = assistant(chat)
+            response = anonymize_text(assistant(chat), ano_dict)
             print("LLM Assistant: ")
-            print(response)
-            response = anonymize_text(response, ano_dict)
             print(response)
 
         elif cur_role == 'user':
@@ -83,10 +81,3 @@ def check_for_termination(response):
     except Exception as e:
         warnings.warn(f"Error checking for chat termination: {e}")
         return False
-
-
-# run_one_chat_session(max_new_turns=1,
-#                          target_concepts= ["Photosynthesis", "Cellular Respiration", "DNA Replication"],
-#                          prompt_method='few-shot-analogy',
-#                          user_profile= "History student with no knowledge of biology",
-#                          verbose=True)

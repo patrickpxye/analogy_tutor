@@ -1,3 +1,4 @@
+import re
 from typing import List
 from analogy_tutor.utils.llm_lib.get_llm_outputs import get_llm_output
 from analogy_tutor.prompts import LLM_NON_ANALOGY_PROMPT, \
@@ -41,6 +42,9 @@ class LLMAssistant(object):
             prompt = messages
             if len(prompt) and prompt[0]['role'] == 'system':
                 print('[LLMAssistant] System message detected.')
-        response = get_llm_output(prompt, **self.llm_kwargs)
+
+        response_with_cot = get_llm_output(prompt, **self.llm_kwargs)
+        start_teaching = "Learn these concepts carefully. You will be tested on them later. \n"
+        response = start_teaching + response_with_cot.split("Explanation:", 1)[-1].strip()
         
         return response

@@ -51,32 +51,6 @@ def anonymize_text(text, mapping):
             return replacement
     
     # Apply replacements using the regex pattern
-    anonymized_text = re.sub(pattern, replace_match, text)
+    anonymized_text = re.sub(pattern, replace_match, text, flags=re.IGNORECASE)
     
     return anonymized_text
-    
-# def anonymize_text(text, mapping):
-#     def replace_match(match):
-#         word = match.group(0)
-#         lower_word = word.lower()
-        
-#         # Handle plural and singular forms
-#         if lower_word in mapping.keys():
-#             replacement = mapping[lower_word]
-#         elif lower_word.endswith('s') and lower_word[:-1] in mapping:  # plural form
-#             replacement = mapping[lower_word[:-1]] + 's'
-#         else:
-#             return word  # No replacement if word not in mapping
-        
-#         # Preserve original capitalization
-#         if word.istitle():
-#             return replacement.capitalize()
-#         elif word.isupper():
-#             return replacement.upper()
-#         else:
-#             return replacement
-            
-#     pattern = r'\b\w+\b'
-#     anonymized_text = re.sub(pattern, replace_match, text)
-    
-#     return anonymized_text

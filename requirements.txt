@@ -3,3 +3,4 @@ torch
 openai
 transformers
 datasets
+rich

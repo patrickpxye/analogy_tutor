@@ -8,7 +8,7 @@ from analogy_tutor.utils.llm_lib.get_llm_outputs import get_llm_output
 class Exam(object):
     def __init__(self, **llm_kwargs):
         """
-        Initialize the UserSimulator model.
+        Initialize the Exam model.
         """
         super().__init__()
         self.prompt_handler = TEST_PROMPT
@@ -21,7 +21,7 @@ class Exam(object):
                                      user_profile=user_profile,
                                      chat_history=chat_template(messages))
         
-        import pdb; pdb.set_trace()
+        # import pdb; pdb.set_trace()
         response = get_llm_output(prompt, **self.llm_kwargs).strip()
 
         matches = re.findall(r'\[([A-Z])\]', response)
