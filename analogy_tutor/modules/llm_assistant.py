@@ -1,6 +1,7 @@
 from typing import List
-from utils.llm_lib.get_llm_outputs import get_llm_output
-from prompts import LLM_NON_ANALOGY_PROMPT, LLM_ZERO_SHOT_ANALOGY_PROMPT, LLM_FEW_SHOT_ANALOGY_PROMPT
+from analogy_tutor.utils.llm_lib.get_llm_outputs import get_llm_output
+from analogy_tutor.prompts import LLM_NON_ANALOGY_PROMPT, \
+    LLM_ZERO_SHOT_ANALOGY_PROMPT, LLM_FEW_SHOT_ANALOGY_PROMPT
 
 class LLMAssistant(object):
     registered_prompts = {
@@ -34,7 +35,8 @@ class LLMAssistant(object):
         if len(messages) != 0: assert messages[-1]['role'] == 'user'
 
         if self.method in ['non-analogy', 'zero-shot-analogy', 'few-shot-analogy']:
-            prompt = self.prompt_handler(target_concepts=self.target_concepts, user_profile=self.user_profile)
+            prompt = self.prompt_handler(target_concepts=self.target_concepts, 
+                                         user_profile=self.user_profile)
         else:
             prompt = messages
             if len(prompt) and prompt[0]['role'] == 'system':

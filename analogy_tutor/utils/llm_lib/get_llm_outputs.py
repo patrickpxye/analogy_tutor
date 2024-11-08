@@ -2,8 +2,7 @@ import os
 import warnings
 import multiprocessing
 from functools import partial
-from utils.llm_lib.completion import *
-# from analogy_tutor.utils.loose_match import loose_match
+from analogy_tutor.utils.llm_lib.completion import *
 
 
 # Default parameters for retrying API calls and the sleep time between retries

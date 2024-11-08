@@ -32,7 +32,3 @@ class UserProfile():
     
     def __getitem__(self, idx):
         return self.processed_data[idx]
-
-
-user_profiles = UserProfile()
-print(user_profiles[10])

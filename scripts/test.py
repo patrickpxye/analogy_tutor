@@ -1,5 +1,10 @@
-from ds.mmlu import MMLU
-from ds.sciq import SciQ
+from analogy_tutor.users import UserProfile
+
+user_profiles = UserProfile()
+print(user_profiles[10])
+
+from analogy_tutor.ds.mmlu import MMLU
+from analogy_tutor.ds.sciq import SciQ
 
 # # MMLU dataset
 # dataset = MMLU()

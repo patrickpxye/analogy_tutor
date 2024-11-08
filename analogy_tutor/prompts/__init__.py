@@ -1,14 +1,16 @@
 import os
 import os.path as osp
-from prompts.prompt_handler import PromptHandler
+from analogy_tutor.prompts.prompt_handler import PromptHandler
 from typing import Union
-
 
 current_dir = osp.dirname(__file__)
 
 ###############################################################################
 ##        Load System Prompt & Assistant Prompt (for prompting methods)      ##
 ###############################################################################
+with open(osp.join(current_dir, 'user_simulator/exam.txt'), 'r') as f:
+    TEST_PROMPT = PromptHandler(f.read(), input_keys=['question','choices','user_profile', 'chat_history'], output_format=str)
+
 with open(osp.join(current_dir, 'llm_assistant/non-analogy.txt'), 'r') as f:
     LLM_NON_ANALOGY_PROMPT = PromptHandler(f.read(), input_keys=['target_concepts','user_profile'], output_format=str)
 

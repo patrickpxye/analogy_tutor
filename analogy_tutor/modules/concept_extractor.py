@@ -1,7 +1,7 @@
 from typing import List
-from utils.llm_lib.get_llm_outputs import get_llm_output
-from prompts import EXTRACTOR_PROMPT
-from utils.template import chat_template
+from analogy_tutor.utils.llm_lib.get_llm_outputs import get_llm_output
+from analogy_tutor.prompts import EXTRACTOR_PROMPT
+from analogy_tutor.utils.template import chat_template
 
 
 class Extractor(object):

@@ -3,15 +3,21 @@ import copy
 import warnings
 from tqdm import tqdm
 
-from modules import LLMAssistant, UserSimulator, Extractor
-from utils.template import chat_template
+from analogy_tutor.modules import LLMAssistant, UserSimulator, Extractor, Exam
+from analogy_tutor.utils.template import chat_template
+from analogy_tutor.core.anonymize_concepts import anonymize_text
 
-def run_one_chat_session(assistant_generation_kwargs={},
+
+def run_one_chat_session(question,
+                         choices,
+                         answer,
+                         target_concepts,
+                         user_profile,
+                         ano_dict,
+                         assistant_generation_kwargs={},
                          user_generation_kwargs={},
                          max_new_turns=1,
-                         target_concepts= " ",
                          prompt_method='zero-shot-analogy',
-                         user_profile= " ",
                          verbose=True):
     """
     Run a single chat session.
@@ -31,20 +37,30 @@ def run_one_chat_session(assistant_generation_kwargs={},
                             **assistant_generation_kwargs)
     user = UserSimulator(user_profile=user_profile, 
                          **user_generation_kwargs)
+    exam = Exam(**user_generation_kwargs)
 
     chat = []
     cur_role = 'assistant'
+    
     exit_flag = False
 
-    for _ in tqdm(range(2 * (max_new_turns or 1)), desc="Generating chat", disable=not verbose):
-        if cur_role == 'assistant':
+    for idx in tqdm(range(2 * (max_new_turns or 1)), desc="Generating chat", disable=not verbose):
+
+        if cur_role == 'user' and idx == 2 * max_new_turns - 1:
+            response, accuracy = exam(user_profile, question, choices, answer, chat)
+        
+        elif cur_role == 'assistant':
             response = assistant(chat)
             print("LLM Assistant: ")
             print(response)
+            response = anonymize_text(response, ano_dict)
+            print(response)
+
         elif cur_role == 'user':
             response = user(chat)
             print("User: ")
             print(response)
+
         if os.environ.get('RANK') == '0' and verbose:
             print('*' * 75, f'\n**{cur_role}**: {response}\n', '*' * 75)
         
@@ -57,7 +73,7 @@ def run_one_chat_session(assistant_generation_kwargs={},
         if exit_flag:
             break
 
-    return chat
+    return chat, accuracy
 
 
 def check_for_termination(response):

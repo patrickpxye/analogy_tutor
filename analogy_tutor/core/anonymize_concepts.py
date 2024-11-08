@@ -54,6 +54,7 @@ def anonymize_text(text, mapping):
     anonymized_text = re.sub(pattern, replace_match, text)
     
     return anonymized_text
+    
 # def anonymize_text(text, mapping):
 #     def replace_match(match):
 #         word = match.group(0)
