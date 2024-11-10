@@ -15,5 +15,15 @@ class Extractor(object):
     def __call__(self, quiz_question):
         
         prompt = self.prompt_handler(quiz_question=quiz_question)
-        response = get_llm_output(prompt).strip()
+        response_str = get_llm_output(prompt).strip()
+        response_str = response_str.split(',')
+        response = []
+        for word in response_str:
+            word = word.strip()
+            # if there is a single or double quote leading or ending the word, remove it
+            if word[0] in ['"', "'"]:
+                word = word[1:]
+            if word[-1] in ['"', "'"]:
+                word = word[:-1]
+            response.append(word)
         return response

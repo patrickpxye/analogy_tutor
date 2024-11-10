@@ -9,19 +9,21 @@ from analogy_tutor.core.anonymize_concepts import generate_anonymized_mapping, a
 from rich import print
 
 # # Quiz Question -> Target Concepts
-# quiz_question = dataset[0]
-# extractor = Extractor()
-# concepts = extractor(quiz_question)
-# print("Quiz Question: ", quiz_question)
-# print("Extracted Concepts: ", concepts)
-
 dataset = SciQ()
 user_profile_lib = UserProfile()
 quiz_question = dataset[0]
-concepts = ['mesophilic organisms', 'viruses', 'gymnosperms', 'protozoa', 'temperature', 'food preparation', 'cheese', 'yogurt', 'beer', 'wine']
+extractor = Extractor()
+concepts = extractor(quiz_question)
+print("Quiz Question: ", quiz_question)
+print("Extracted Concepts: ", concepts)
+
+# quiz_question = dataset[0]
+# concepts = ['mesophilic organisms', 'viruses', 'gymnosperms', 'protozoa', 'temperature', 'food preparation', 'cheese', 'yogurt', 'beer', 'wine']
 
 # Target Concepts Anonymization
 ano_dict = generate_anonymized_mapping(concepts)
+
+print("Anonymized Concepts: ", ano_dict)
 
 # Quiz Question -> Anonymized Quiz Concepts
 ano_quiz = {}
