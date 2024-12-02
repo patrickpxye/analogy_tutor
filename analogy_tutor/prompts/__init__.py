@@ -14,6 +14,9 @@ with open(osp.join(current_dir, 'user_simulator/exam.txt'), 'r') as f:
 with open(osp.join(current_dir, 'llm_assistant/non-analogy.txt'), 'r') as f:
     LLM_NON_ANALOGY_PROMPT = PromptHandler(f.read(), input_keys=['target_concepts','user_profile'], output_format=str)
 
+with open(osp.join(current_dir, 'llm_assistant/few-shot-non-analogy.txt'), 'r') as f:
+    LLM_FEW_SHOT_NON_ANALOGY_PROMPT = PromptHandler(f.read(), input_keys=['target_concepts','user_profile'], output_format=str)
+
 with open(osp.join(current_dir, 'llm_assistant/zero-shot-analogy.txt'), 'r') as f:
     LLM_ZERO_SHOT_ANALOGY_PROMPT = PromptHandler(f.read(), input_keys=['target_concepts','user_profile'], output_format=str)
 

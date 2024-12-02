@@ -4,7 +4,7 @@ from typing import Any, Union
 
 
 def complete_text_claude(message: Union[str, list], 
-                         model: str = "claude-2.1",
+                         model: str = "claude-3-5-sonnet-20240620",
                          json_object: bool = False,
                          max_tokens: int = 2048, 
                          temperature: float = 1.0, 
