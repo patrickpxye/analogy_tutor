@@ -4,7 +4,7 @@ from typing import Any, Union
 
 
 def complete_text_claude(message: Union[str, list], 
-                         model: str = "claude-2.1",
+                         model: str = "claude-3-5-sonnet-20240620",
                          json_object: bool = False,
                          max_tokens: int = 2048, 
                          temperature: float = 1.0, 
@@ -42,7 +42,7 @@ def complete_text_claude(message: Union[str, list],
 
     for cnt in range(max_retry):
         try:
-            response = anthropic_client.beta.tools.messages.create(
+            response = anthropic_client.messages.create(
                 messages=messages,
                 model=model,
                 temperature=temperature,

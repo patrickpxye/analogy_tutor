@@ -2,14 +2,14 @@ import re
 from typing import List
 from analogy_tutor.utils.llm_lib.get_llm_outputs import get_llm_output
 from analogy_tutor.prompts import LLM_NON_ANALOGY_PROMPT, \
-    LLM_ZERO_SHOT_ANALOGY_PROMPT, LLM_FEW_SHOT_ANALOGY_PROMPT
+    LLM_ZERO_SHOT_ANALOGY_PROMPT, LLM_FEW_SHOT_ANALOGY_PROMPT, LLM_FEW_SHOT_NON_ANALOGY_PROMPT
 
 class LLMAssistant(object):
     registered_prompts = {
         'non-analogy': LLM_NON_ANALOGY_PROMPT,
         'zero-shot-analogy': LLM_ZERO_SHOT_ANALOGY_PROMPT,
         'few-shot-analogy': LLM_FEW_SHOT_ANALOGY_PROMPT,
-        'cot': None
+        'few-shot-non-analogy': LLM_FEW_SHOT_NON_ANALOGY_PROMPT
     }
     def __init__(self, target_concepts, user_profile, method='zero-shot-analogy', **llm_kwargs):
         """
@@ -35,7 +35,7 @@ class LLMAssistant(object):
         """
         if len(messages) != 0: assert messages[-1]['role'] == 'user'
 
-        if self.method in ['non-analogy', 'zero-shot-analogy', 'few-shot-analogy']:
+        if self.method in ['non-analogy', 'few-shot-non-analogy', 'zero-shot-analogy', 'few-shot-analogy']:
             prompt = self.prompt_handler(target_concepts=self.target_concepts, 
                                          user_profile=self.user_profile)
         else:
@@ -44,6 +44,7 @@ class LLMAssistant(object):
                 print('[LLMAssistant] System message detected.')
 
         response_with_cot = get_llm_output(prompt, **self.llm_kwargs)
+        print("response_with_cot: ", response_with_cot)
         start_teaching = "Learn these concepts carefully. You will be tested on them later. \n"
         response = start_teaching + response_with_cot.split("Explanation:", 1)[-1].strip()
         

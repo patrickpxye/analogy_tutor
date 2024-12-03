@@ -53,4 +53,3 @@ chat, accuracy = run_one_chat_session(
 
 print('Accuracy: ', accuracy)
 print('Chat: ', chat)
-                                     
