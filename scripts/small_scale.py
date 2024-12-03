@@ -12,8 +12,6 @@ from analogy_tutor.core.anonymize_concepts import generate_anonymized_mapping, a
 dataset = SciQ()
 user_profile_lib = UserProfile()
 
-
-
 for j in range(2):
     success = 0
     for i in range(5):

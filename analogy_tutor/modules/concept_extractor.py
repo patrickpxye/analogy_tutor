@@ -5,17 +5,18 @@ from analogy_tutor.utils.template import chat_template
 
 
 class Extractor(object):
-    def __init__(self):
+    def __init__(self, model='gpt-4o'):
         """
         Initialize the model.
         """
         super().__init__()  
+        self.model = model
         self.prompt_handler = EXTRACTOR_PROMPT
 
     def __call__(self, quiz_question):
         
         prompt = self.prompt_handler(quiz_question=quiz_question)
-        response_str = get_llm_output(prompt).strip()
+        response_str = get_llm_output(prompt, model=self.model).strip()
         response_str = response_str.split(',')
         response = []
         for word in response_str:

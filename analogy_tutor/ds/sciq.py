@@ -46,4 +46,7 @@ class SciQ():
     
     def __getitem__(self, idx):
         return self.processed_data[idx]
+
+    def __len__(self):
+        return len(self.processed_data)
     
