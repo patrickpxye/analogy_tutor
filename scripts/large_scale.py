@@ -14,10 +14,10 @@ dataset = SciQ()
 user_profile_lib = UserProfile()
 
 methods = ['non-analogy', 'few-shot-non-analogy', 'zero-shot-analogy', 'few-shot-analogy']
-method = methods[2]
+method = methods[0]
 
 success = 0
-trials = 50
+trials = 3
 
 rand_1 = random.sample(range(trials), trials)
 rand_2 = random.sample(range(trials), trials)

@@ -12,7 +12,7 @@ LLM_PARALLEL_NODES = int(os.getenv("LLM_PARALLEL_NODES", 5))
 
 
 def get_llm_output(message, 
-                   model="claude", 
+                   model="claude-3-5-sonnet-20240620", 
                    max_tokens=2048, 
                    temperature=1, 
                    json_object=False):
